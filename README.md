@@ -1,2 +1,2 @@
 # CSharp.Playground
-Demo implementation of real number parsing
+RealNumber - Demo implementation of real number parsing from string
