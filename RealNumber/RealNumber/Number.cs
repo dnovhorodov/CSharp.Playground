@@ -15,7 +15,7 @@ namespace RealNumberApp
             while (patternDepth <= step && step <= arrayOfChars.Length)
             {
                 var part = GetPartOfArray(arrayOfChars, arrayOfChars.Length - step, patternDepth);
-                if(IsDefinedInPatternDefinitions(part))
+                if(IsDefinedInPatterns(part))
                 {
                     step++;
                     isValid = true;
@@ -30,7 +30,7 @@ namespace RealNumberApp
             return isValid;
         }
 
-        private static bool IsDefinedInPatternDefinitions(params char[] list)
+        private static bool IsDefinedInPatterns(params char[] list)
         {
             bool definedInPattern = false;
             var definitions = PatternDefinitions.GetAllowedDefinitions(Parse);

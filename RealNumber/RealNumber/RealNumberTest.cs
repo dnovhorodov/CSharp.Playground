@@ -35,7 +35,7 @@ namespace RealNumberApp.Tests
         [DataRow("-+0.06")]
         [DataRow("00000-")]
         [DataRow("+.-")]
-        public void PassedData_ShouldResolve_ToNotARealNumber(string number)
+        public void PassedData_ShouldNotResolve_ToRealNumber(string number)
         {
             Assert.IsFalse(Number.IsRealNumber(number));
         }
