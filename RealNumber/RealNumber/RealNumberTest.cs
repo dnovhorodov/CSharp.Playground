@@ -14,7 +14,7 @@ namespace RealNumberApp.Tests
         [DataRow("-2")]
         [DataRow("+5")]
         [DataRow("-.5")]
-        [DataRow("-.5")]
+        [DataRow("+.58234")]
         [DataRow("-0.06")]
         [DataRow("000001")]
         public void PassedData_ShouldResolve_ToRealNumber(string number)
