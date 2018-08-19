@@ -30,24 +30,16 @@ namespace RealNumberApp
             return isValid;
         }
 
-        private static bool IsDefinedInPatterns(params char[] list)
-        {
-            bool definedInPattern = false;
-            var definitions = PatternDefinitions.GetAllowedDefinitions(Parse);
-
-            foreach (var pattern in definitions.Where(def => def.Count == list.Length))
-            {
-                definedInPattern = true;
-                for (int i = 0; i < list.Length; i++)
-                {
-                    definedInPattern &= IsCharDefinedForType(pattern[i], list[i]);
-                }
-                if (definedInPattern)
-                    break;
-            }
-
-            return definedInPattern;
-        }
+        private static bool IsDefinedInPatterns(params char[] list) => PatternDefinitions.GetAllowedDefinitions(Parse)
+                .Where(pattern => pattern.Count == list.Length)
+                .Any(pattern =>
+                    {
+                        var counter = 0;
+                        return pattern.TrueForAll(
+                            charType =>
+                                PatternDefinitions.CharacterTypeValuesDictionary[charType].IndexOf(list[counter++]) != -1);
+                    }
+                 );
 
         private static char[] GetPartOfArray(char[] arrayOfChars, int sourceIndex, int length)
         {
@@ -56,9 +48,6 @@ namespace RealNumberApp
 
             return arrayCopy;
         }
-
-        private static bool IsCharDefinedForType(CharacterType type, char c) 
-            => PatternDefinitions.CharacterTypeValuesDictionary[type].IndexOf(c) != -1;
 
         private static List<CharacterType> Parse(string pattern)
         {
