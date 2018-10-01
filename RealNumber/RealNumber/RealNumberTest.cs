@@ -6,6 +6,8 @@ namespace RealNumberApp.Tests
     public class RealNumberTest
     {
         [DataTestMethod]
+        [DataRow("123.123")]
+        [DataRow("-123.123")]
         [DataRow("0")]
         [DataRow("1")]
         [DataRow("0.5")]

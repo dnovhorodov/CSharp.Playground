@@ -30,7 +30,24 @@ namespace RealNumberApp
             return isValid;
         }
 
-        private static bool IsDefinedInPatterns(params char[] list) => PatternDefinitions.GetAllowedDefinitions(Parse)
+        private static bool IsDefinedInPatterns(params char[] list)
+        {
+            var definitions = PatternDefinitions.GetAllowedDefinitions(Parse);
+            var parts = new string(list).Split('.');
+            if(parts.Length == 2)
+            {
+                // if starting from left in list is all digits until first non-digit
+                // cut all before last digit (just before non-digit)
+                if (!string.IsNullOrEmpty(parts[0]))
+                {
+                    if(parts[0].All(c => char.IsDigit(c)))
+                    {
+                        //Array.Copy(list, parts[0].Length - 1, list, 0, list.Length)
+                        list = SubArray(list, list.Length - parts[0].Length - 1, list.Length - parts[0].Length);
+                    }
+                }
+            }
+            return definitions
                 .Where(pattern => pattern.Count == list.Length)
                 .Any(pattern =>
                     {
@@ -40,6 +57,14 @@ namespace RealNumberApp
                                 PatternDefinitions.CharacterTypeValuesDictionary[charType].IndexOf(list[counter++]) != -1);
                     }
                  );
+        }
+
+        public static T[] SubArray<T>(T[] data, int index, int length)
+        {
+            T[] result = new T[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
 
         private static char[] GetPartOfArray(char[] arrayOfChars, int sourceIndex, int length)
         {
