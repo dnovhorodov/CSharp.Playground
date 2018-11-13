@@ -1,4 +1,5 @@
 # Demo of real number parsing from string expression.
+##Note: Shows an exmaple of customized parsing logic itself. Real implementation of the task far more simpler :)
 
 **Input**: *string*
 
